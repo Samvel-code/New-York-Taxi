@@ -1,0 +1,138 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 790,
+            "y": 352.625
+          },
+          "nodeIndex": "factTaxiDataShort",
+          "nodeLineageTag": "b92b6ba8-32a7-4fe1-bc1b-01dcfde4836e",
+          "size": {
+            "height": 553,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 86,
+            "y": 110.625
+          },
+          "nodeIndex": "dictTaxiZones",
+          "nodeLineageTag": "eb9c6a58-6148-4a3d-b34c-266184d2343f",
+          "size": {
+            "height": 221,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 549,
+            "y": 112.625
+          },
+          "nodeIndex": "dictPaymentType",
+          "nodeLineageTag": "3421fced-5ad6-40c3-96ad-f71e62fbb488",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1340,
+            "y": 276.125
+          },
+          "nodeIndex": "dictRate",
+          "nodeLineageTag": "3369cac0-4eee-4d44-9a2f-4f58365bebd5",
+          "size": {
+            "height": 286,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1417,
+            "y": 938.625
+          },
+          "nodeIndex": "dictStoreAndFwdFlag",
+          "nodeLineageTag": "ef16d8c7-999c-4600-96c9-7f87d4b83a70",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1325,
+            "y": 761.125
+          },
+          "nodeIndex": "dictTripType",
+          "nodeLineageTag": "6248c04c-75a7-4a4f-8728-98ce6e17fdc3",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1104,
+            "y": 50.625
+          },
+          "nodeIndex": "dictVendor",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1615,
+            "y": 472.125
+          },
+          "nodeIndex": "Intelligence",
+          "nodeLineageTag": "4ee392c1-e225-4de3-9c83-eef95d138903",
+          "size": {
+            "height": 202,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1504.6666622161865,
+            "y": 14.875
+          },
+          "nodeIndex": "date",
+          "nodeLineageTag": "0cc0cfe9-65f0-4198-8e8f-76e2d84a2200",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

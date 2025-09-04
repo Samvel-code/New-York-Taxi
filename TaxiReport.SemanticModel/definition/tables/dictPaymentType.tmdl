@@ -1,0 +1,48 @@
+table dictPaymentType
+	lineageTag: 3421fced-5ad6-40c3-96ad-f71e62fbb488
+
+	column PaymentType
+		dataType: double
+		isHidden
+		lineageTag: 00aad862-2dee-4222-a5ff-08cd5a294bfc
+		summarizeBy: none
+		sourceColumn: PaymentType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PaymentMethod
+		dataType: string
+		lineageTag: e108c0eb-0af3-45c6-a708-fbc3e74ba584
+		summarizeBy: none
+		sourceColumn: PaymentMethod
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dictPaymentType = m
+		mode: import
+		queryGroup: dict
+		source =
+				let
+				    Source = #table(
+				        {"PaymentType", "PaymentMethod"},
+				        {
+				            {1, "Credit card"},
+				            {2, "Cash"},
+				            {3, "No charge"},
+				            {4, "Dispute"},
+				            {5, "Unknown"},
+				            {6, "Voided trip"}
+				        }
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"PaymentType", type number}, {"PaymentMethod", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

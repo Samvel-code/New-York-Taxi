@@ -1,0 +1,48 @@
+table dictRate
+	lineageTag: 3369cac0-4eee-4d44-9a2f-4f58365bebd5
+
+	column RateCodeID
+		dataType: double
+		isHidden
+		lineageTag: d847f62e-5c32-4f53-9d17-633c92d559f0
+		summarizeBy: none
+		sourceColumn: RateCodeID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column RateCode
+		dataType: string
+		lineageTag: d9a7b820-7dc9-4a41-9029-579eb2b5b6c6
+		summarizeBy: none
+		sourceColumn: RateCode
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dictRate = m
+		mode: import
+		queryGroup: dict
+		source =
+				let
+				    Source = #table(
+				        {"RateCodeID", "RateCode"},
+				        {
+				            {1, "Standard rate"},
+				            {2, "JFK"},
+				            {3, "Newark"},
+				            {4, "Nassau or Westchester"},
+				            {5, "Negotiated fare"},
+				            {6, "Group ride"}
+				        }
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"RateCode", type text}, {"RateCodeID", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,48 @@
+relationship 2756455f-b0b4-4189-97ee-7a3c210b3e8f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: factTaxiDataShort.lpep_pickup_datetime
+	toColumn: LocalDateTable_6346e979-e0cd-4e51-8249-b5697e55f9c4.Date
+
+relationship 1d2e85b3-e2d8-4693-92cd-709303057916
+	joinOnDateBehavior: datePartOnly
+	fromColumn: factTaxiDataShort.lpep_dropoff_datetime
+	toColumn: LocalDateTable_9441a53e-ebcb-45e2-8950-225cdc934735.Date
+
+relationship 5acf7a33-3f2d-484b-b692-e9a737ee12be
+	fromColumn: factTaxiDataShort.VendorID
+	toColumn: dictVendor.VendorID
+
+relationship 6d539ebc-f4f5-f05a-551b-375a5f831378
+	fromColumn: factTaxiDataShort.payment_type
+	toColumn: dictPaymentType.PaymentType
+
+relationship 2442abe5-4771-12b9-2842-09af3606603b
+	fromColumn: factTaxiDataShort.RatecodeID
+	toColumn: dictRate.RateCodeID
+
+relationship AutoDetected_445a7676-2977-4793-b684-79ee90153e52
+	fromColumn: factTaxiDataShort.store_and_fwd_flag
+	toColumn: dictStoreAndFwdFlag.StoreAndFwdFlag
+
+relationship eac1c55b-7e1c-1176-3f00-34eef2eb77be
+	fromColumn: factTaxiDataShort.trip_type
+	toColumn: dictTripType.TripTypeID
+
+relationship a7f865e0-4d4e-7600-a59f-e7f8b5a3113e
+	fromColumn: factTaxiDataShort.PULocationID
+	toColumn: dictTaxiZones.LocationID
+
+relationship 86d2ba0c-6aeb-b116-05c4-9bbb5196b717
+	isActive: false
+	fromColumn: factTaxiDataShort.DOLocationID
+	toColumn: dictTaxiZones.LocationID
+
+relationship 33d801f9-8d2d-e064-7626-5f07787c292b
+	fromColumn: factTaxiDataShort.date
+	toColumn: date.Date
+
+relationship c8c1913e-d663-4be0-9827-bf7ef8ae6498
+	joinOnDateBehavior: datePartOnly
+	fromColumn: date.Date
+	toColumn: LocalDateTable_467978c6-f771-43d2-bd5f-5ded618d8dd7.Date
+

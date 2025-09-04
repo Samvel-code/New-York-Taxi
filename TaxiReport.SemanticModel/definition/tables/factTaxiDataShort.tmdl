@@ -1,0 +1,550 @@
+table factTaxiDataShort
+	lineageTag: b92b6ba8-32a7-4fe1-bc1b-01dcfde4836e
+
+	/// The time-and-distance fare calculated by the meter
+	measure 'Fare Amount' = SUM(factTaxiDataShort[fare_amount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f4be7a9d-7d2f-41a1-a6a3-da749cce57cd
+
+	/// Miscellaneous extras and surcharges (this only includes the $0.50 and $1 rush hour and overnight charges)
+	measure 'Extra Amount' = SUM(factTaxiDataShort[extra])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f0ca4fea-1f24-42aa-92a7-a7861bbe61ea
+
+	/// $0.30 improvement surcharge assessed on hailed trips at the flag drop
+	measure 'Improvement Surcharge' = SUM(factTaxiDataShort[improvement_surcharge])
+		formatString: #,0.00
+		lineageTag: fb91b3c5-33de-40e8-b66b-b11b139f0c57
+
+	/// $0.50 MTA tax that is automatically triggered based on the metered rate in use
+	measure 'MTA Tax' = SUM(factTaxiDataShort[mta_tax])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 70d5e726-e163-4a12-9e9f-b0f00edacb8f
+
+	/// The number of passengers in the vehicle (this is a driver entered value)
+	measure 'Passenger Count' = SUM(factTaxiDataShort[passenger_count])
+		formatString: #,0
+		lineageTag: b149bfbb-5ba0-4dee-ba07-45fd7e4d72aa
+
+	/// Tip amount (automatically populated for credit card tips - cash tips are not included)
+	measure 'Tip Amount' = SUM(factTaxiDataShort[tip_amount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 31cb132f-199d-4b76-843b-34a2e8f178ab
+
+	/// Total amount of all tolls paid in trip
+	measure 'Tolls Amount' = SUM(factTaxiDataShort[tolls_amount])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: a8a4d6e9-3051-4814-ab2c-e25e50781790
+
+	/// The total amount charged to passengers (does not include cash tips)
+	measure 'Total Revenue' = SUM(factTaxiDataShort[total_amount])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 25a4dc96-c238-4e60-b968-c8f78536d14d
+
+	measure 'Total Trips' = COUNTROWS(factTaxiDataShort)
+		formatString: #,0
+		lineageTag: b8920541-5ef4-48d6-a3a3-712910f8abcd
+
+	measure 'Total Trips, SPLY' = CALCULATE([Total Trips], DATEADD('date'[Date],-12,MONTH))
+		displayFolder: SPLY
+		lineageTag: 9ea8ee5a-0f3f-41dc-a7b0-d6017a110b72
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Trips Header' = "Total Trips for " & [Dates Header]
+		displayFolder: Headers
+		lineageTag: 4eafad18-ad41-4d30-9103-cbab5743aef9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Dates Header' = SELECTEDVALUE( 'date'[Month], "Dec" ) &" "& SELECTEDVALUE( 'date'[Year], "All Years" )
+		displayFolder: Headers
+		lineageTag: 92cdc16f-48f1-4046-93a3-ed4d34c6d5d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Revenue Header' = "Total Revenue for " & [Dates Header]
+		displayFolder: Headers
+		lineageTag: b66e8ac6-7f78-4bc1-9d66-5385edfefeff
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Av. Trip Distance' = AVERAGE(factTaxiDataShort[trip_distance])
+		lineageTag: 4cd23527-9f34-477a-bef7-ffa768adb82f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Revenue, SPLY' = CALCULATE([Total Revenue], DATEADD('date'[Date],-12,MONTH))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: SPLY
+		lineageTag: aafffcc1-591c-4b26-a7c0-07fb0085278a
+
+	measure 'Av Trip Distance, SPLY' = CALCULATE([Av. Trip Distance], DATEADD('date'[Date],-12,MONTH))
+		formatString: #,0.00
+		displayFolder: SPLY
+		lineageTag: 72092c5a-aaf5-48a9-97a2-a73823501274
+
+	measure 'Av. Fare' = AVERAGE(factTaxiDataShort[fare_amount])
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 8916c07f-8971-44da-a354-6c7c6360763a
+
+	measure 'Av Fare, SPLY' = CALCULATE([Av. Fare], DATEADD('date'[Date],-12,MONTH))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: SPLY
+		lineageTag: 85f499f0-bad7-4441-8c75-f8a3762c682b
+
+	measure 'Av. Fare Header' = "Av. Fare for " & [Dates Header]
+		displayFolder: Headers
+		lineageTag: 2218d37f-ac75-4d80-b8b8-a218b078991f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Av. Trip Distance Header' = "Av. Trip Dist. for " & [Dates Header]
+		displayFolder: Headers
+		lineageTag: 79ab3e54-3473-44aa-90a2-dc2f96590307
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue Tree Header' = "Revenue Tree for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: c532cbaa-0713-4b6f-9872-d14954db4f96
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue by Payment Type Header' = "Revenue by Payment Type for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: 3ce2794e-ce40-4d91-8e20-42f1d58262e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Trips per hour Header' = "Trips per hour for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: 02ada014-8c95-4555-ace5-0474988b9c06
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Dates Header 2' = SELECTEDVALUE( 'date'[Month], "all" ) &" "& SELECTEDVALUE( 'date'[Year], "All Years" )
+		displayFolder: Headers
+		lineageTag: e9d69c1f-055e-4db3-8e08-889034822b18
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue by Rate Code Header' = "Revenue by Rate Code for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: e707d0f0-5957-4826-8c8c-784f0fe79956
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue per Trip' = DIVIDE([Total Revenue],[Total Trips],0)
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: a53bca8b-769a-4ce8-b544-f97aaa5e4ffe
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Av. Passenger Count' = AVERAGE(factTaxiDataShort[passenger_count])
+		lineageTag: 8b7c4e7c-ceed-4fce-b785-8eee40bc2436
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Trips by Time and Day Header' = "Trips by Time and Day for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: c4cfe040-5ac1-4c29-bbed-7a1f27fdc3a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Trips by Zone for Header' = "Trips by Zone for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: 61ce4ed6-46d4-406b-a03a-8b01d2879ed5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Key Influencers of Trips for Header' = "Key Influencers of Trips for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: a3bc2acd-ec76-43c9-8eee-c815c470f3bd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Passenger Count, SPLY' = CALCULATE([Passenger Count], DATEADD('date'[Date],-12,MONTH))
+		formatString: #,0.00
+		displayFolder: SPLY
+		lineageTag: 1fc1bd26-4299-4c01-b5ed-46591c4d09e9
+
+	measure 'Passenger Count Header' = "Passenger Count for " & [Dates Header]
+		displayFolder: Headers
+		lineageTag: b5a4270b-28b0-44e3-b952-b4b12554ea70
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'KPI Table Header' = "KPI Table for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: 9190e5a1-915e-49d9-a0fd-d1d480c6f2ac
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fare and Distance Dependancy by zone' = "Fare and Distance Dependancy by zone for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: 1f0082ca-8a9d-4d13-baa7-1eff3e92d678
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fare and Distance Dependancy by month Header' = "Fare and Distance Dependancy by month for " & [Dates Header 2]
+		lineageTag: 120ba5a1-6c8b-496d-99ee-4a324d88d36b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Passenger Count by Year, Month and Trip Segment Header' = "Passenger Count by Year, Month and Trip Segment for " & [Dates Header 2]
+		displayFolder: Headers
+		lineageTag: 03c7bc6e-5d73-41bd-a3eb-7cae2be33b62
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Revenue by Year and Trip Segment Header' = "Total Revenue Variance by Year and Trip Segment "
+		displayFolder: Headers
+		lineageTag: 01c2ff09-5e25-458b-9118-189a0fb28948
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Payment Method by Year and Trip Segment Header' = "Total Revenue Variance by Year and Payment Method"
+		displayFolder: Headers
+		lineageTag: 0b4c8fee-d363-4c87-bc87-91f6e4c064a9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Trip Duration' = SUM(factTaxiDataShort[trip_duration])
+		formatString: #,0.00
+		lineageTag: 8e68cb98-f1fa-485a-b33a-d5631f54658c
+
+	/// A code indicating the LPEP provider that provided the record (1= Creative Mobile Technologies, LLC; 2= Verifone Inc.)
+	column VendorID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 354887e6-0b93-47e2-87a0-0b831fc65b1c
+		summarizeBy: none
+		sourceColumn: VendorID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The date and time when the meter was engaged
+	column lpep_pickup_datetime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 80dcb927-93fb-43b6-af51-1b600fffe22a
+		summarizeBy: none
+		sourceColumn: lpep_pickup_datetime
+
+		variation Variation
+			isDefault
+			relationship: 2756455f-b0b4-4189-97ee-7a3c210b3e8f
+			defaultHierarchy: LocalDateTable_6346e979-e0cd-4e51-8249-b5697e55f9c4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The date and time when the meter was disengaged
+	column lpep_dropoff_datetime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f911e0d3-dd59-49a2-ae01-3a9dbdb2b6ee
+		summarizeBy: none
+		sourceColumn: lpep_dropoff_datetime
+
+		variation Variation
+			isDefault
+			relationship: 1d2e85b3-e2d8-4693-92cd-709303057916
+			defaultHierarchy: LocalDateTable_9441a53e-ebcb-45e2-8950-225cdc934735.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	/// This flag indicates whether the trip record was held in vehicle memory before sending to the vendor, aka “store and forward,” because the vehicle did not have a connection to the server (Y= store and forward trip; N= not a store and forward trip)
+	column store_and_fwd_flag
+		dataType: string
+		isHidden
+		lineageTag: 64bd8379-2446-41f9-9831-bb62d074e60a
+		summarizeBy: none
+		sourceColumn: store_and_fwd_flag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// The final rate code in effect at the end of the trip (1= Standard rate; 2= JFK; 3= Newark; 4= Nassau or Westchester; 5= Negotiated fare; 6= Group ride)
+	column RatecodeID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ba143467-a157-4cd2-9d6c-bb35dbc0564b
+		summarizeBy: none
+		sourceColumn: RatecodeID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TLC Taxi Zone in which the taximeter was engaged
+	column PULocationID
+		dataType: int64
+		formatString: 0
+		lineageTag: b2a3c75f-11c6-44b9-8750-d6626f3f5218
+		summarizeBy: none
+		sourceColumn: PULocationID
+
+		annotation SummarizationSetBy = Automatic
+
+	/// TLC Taxi Zone in which the taximeter was disengaged
+	column DOLocationID
+		dataType: int64
+		formatString: 0
+		lineageTag: 18f62c79-87f9-4bc1-9458-d314fb778725
+		summarizeBy: none
+		sourceColumn: DOLocationID
+
+		annotation SummarizationSetBy = User
+
+	/// The number of passengers in the vehicle (this is a driver entered value)
+	column passenger_count
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4a860d04-8744-49bf-8fa7-e790e37f2a59
+		summarizeBy: none
+		sourceColumn: passenger_count
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	/// The elapsed trip distance in miles reported by the taximeter
+	column trip_distance
+		dataType: double
+		lineageTag: ab1ae26f-8b35-4923-98a8-0f6aa3b472eb
+		summarizeBy: none
+		sourceColumn: trip_distance
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// The time-and-distance fare calculated by the meter
+	column fare_amount
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0833c1ca-23fd-4591-b6e3-9703eece2858
+		summarizeBy: none
+		sourceColumn: fare_amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	/// Miscellaneous extras and surcharges (this only includes the $0.50 and $1 rush hour and overnight charges)
+	column extra
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ebb7769d-240b-4468-bcb0-ad477f20c246
+		summarizeBy: none
+		sourceColumn: extra
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	/// $0.50 MTA tax that is automatically triggered based on the metered rate in use
+	column mta_tax
+		dataType: double
+		isHidden
+		lineageTag: d74024bb-99a8-491f-82eb-c03ad8cb4b36
+		summarizeBy: none
+		sourceColumn: mta_tax
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// Tip amount (automatically populated for credit card tips - cash tips are not included)
+	column tip_amount
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3a469723-81b0-43ed-bfa0-a12c365d3775
+		summarizeBy: none
+		sourceColumn: tip_amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	/// Total amount of all tolls paid in trip
+	column tolls_amount
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 107e951c-3972-465e-bec4-a43e862f0510
+		summarizeBy: none
+		sourceColumn: tolls_amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	/// $0.30 improvement surcharge assessed on hailed trips at the flag drop
+	column improvement_surcharge
+		dataType: double
+		isHidden
+		lineageTag: df542b1f-2ef2-4cee-8fdc-5bd201292da1
+		summarizeBy: none
+		sourceColumn: improvement_surcharge
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// The total amount charged to passengers (does not include cash tips)
+	column total_amount
+		dataType: double
+		isHidden
+		lineageTag: 7513e982-7523-4daa-a1ed-6574fb9c2eeb
+		summarizeBy: none
+		sourceColumn: total_amount
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	/// A numeric code signifying how the passenger paid for the trip (1= Credit card; 2= Cash; 3= No charge; 4= Dispute; 5= Unknown; 6= Voided trip)
+	column payment_type
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: b3b0f8f9-7a44-47ec-ba5a-9d056918543f
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	/// A code indicating whether the trip was a street-hail or a dispatch that is automatically assigned based on the metered rate in use but can be altered by the driver (1= Street-hail; 2= Dispatch)
+	column trip_type
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 79f4630d-5a3f-487c-afae-dee4cc18c668
+		summarizeBy: none
+		sourceColumn: trip_type
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 07d8e77f-3a91-46fb-a7e6-7fc0c031309a
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column time
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 6627f02f-793b-4e56-b325-59ad8ab6c704
+		summarizeBy: none
+		sourceColumn: time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column trip_duration = DATEDIFF(factTaxiDataShort[lpep_pickup_datetime],factTaxiDataShort[lpep_dropoff_datetime],MINUTE)
+		formatString: 0.00
+		lineageTag: e9cb8108-38d5-4ee5-b2d3-61fd897d6845
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Trip Segment' = ```
+			
+			VAR Distance = [trip_distance]
+			VAR Duration = [trip_duration]   -- in minutes
+			VAR Speed    = DIVIDE(Distance * 60, Duration, BLANK())  -- mph
+			VAR Dropoff  = [DOLocationID]
+			
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        // airport rides Likely airport corridors even with capped distances.
+			        Distance >= 8 && Distance <= 10.41 &&
+			        Duration >= 25 && Duration <= 60 &&
+			        Dropoff IN {132, 138}, "Airport",
+			
+			        // anomalies
+			        (Distance > 2 && Duration < 5) || Speed > 40, "Too Fast", // Impossible/implausible speeds.
+			        Distance < 0.5 && Duration > 60, "Too Long", // Duration outlier for tiny distance.
+			
+			        // wait time
+			        Distance < 0.2 && Duration >= 10, "Wait Heavy", // Meter running but car hardly moved (pickup wait, standstill).
+			
+			        // very short hops
+			        Distance >= 0.01 && Distance < 1 && Duration <= 10, "Errand", // Very short, local hops inside a block or two.
+			
+			        // frequent short trip
+			        Distance >= 1 && Distance < 3 && Duration >= 5 && Duration <= 20 && Speed >= 6 && Speed <= 12,
+			        "Short", // Typical inner-city short ride.
+			
+			        // crosstown
+			        Distance >= 3 && Distance < 6 && Duration >= 15 && Duration <= 35, "Crosstown", // Medium trips across neighborhoods.
+			
+			        // scenic/slow
+			        Distance >= 3 && Distance < 6 && Duration > 45 && Speed < 8, "Slow XTown", // Normal distances but notably slow (heavy traffic).
+			
+			        // borough stretch
+			        Distance >= 6 && Distance <= 10.41 && Duration >= 25 && Duration <= 60, "Borough", // The long end of your data (but still within city limits).
+			
+			        // express
+			        Distance >= 3 && Duration <= 25 && Speed > 15, "Express", // Fast, efficient ride (good flow/expressways).
+			
+			        // default
+			        "Typical"
+			    )
+			
+			```
+		lineageTag: 3c002456-d3fd-4093-88b8-f72c26b55a94
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition factTaxiDataShort = m
+		mode: import
+		queryGroup: fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\Samvel\Downloads\Test Task PBI 202401UA\data\TaxiDataShort.csv"),[Delimiter=",", Columns=18, Encoding=1200, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"VendorID", Int64.Type}, {"lpep_pickup_datetime", type datetime}, {"lpep_dropoff_datetime", type datetime}, {"store_and_fwd_flag", type text}, {"RatecodeID", Int64.Type}, {"PULocationID", Int64.Type}, {"DOLocationID", Int64.Type}, {"passenger_count", Int64.Type}, {"trip_distance", type number}, {"fare_amount", Int64.Type}, {"extra", Int64.Type}, {"mta_tax", type number}, {"tip_amount", Int64.Type}, {"tolls_amount", Int64.Type}, {"improvement_surcharge", type number}, {"total_amount", type number}, {"payment_type", Int64.Type}, {"trip_type", Int64.Type}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "lpep_pickup_datetime", "lpep_pickup_datetime - Copy"),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Duplicated Column",{{"lpep_pickup_datetime - Copy", type date}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"lpep_pickup_datetime - Copy", "date"}}),
+				    #"Sorted Rows" = Table.Sort(#"Renamed Columns",{{"date", Order.Ascending}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Sorted Rows", each ([date] <> #date(2010, 9, 23))),
+				    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "time", each DateTime.From(DateTime.ToText([lpep_pickup_datetime],"HH:00:00"))),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Added Custom",{{"time", type time}})
+				in
+				    #"Changed Type3"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

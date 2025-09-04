@@ -1,0 +1,46 @@
+table dictVendor
+	lineageTag: 8f71371f-18c5-4216-b958-54c86bab2de5
+
+	column VendorID
+		dataType: double
+		isHidden
+		lineageTag: fbe82fea-db3d-41c1-8e03-4eed98eb37e5
+		summarizeBy: none
+		sourceColumn: VendorID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LPEP_Provider
+		dataType: string
+		lineageTag: dfdb7715-e568-4627-840d-5becf1349f37
+		summarizeBy: none
+		sourceColumn: LPEP_Provider
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dictVendor = m
+		mode: import
+		queryGroup: dict
+		source =
+				let
+				    Source = #table(
+				        {"VendorID", "LPEP_Provider"},
+				        {
+				            {1, "Creative Mobile Technologies, LLC"},
+				            {2, "Verifone Inc."}
+				        }
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"VendorID", type number}, {"LPEP_Provider", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

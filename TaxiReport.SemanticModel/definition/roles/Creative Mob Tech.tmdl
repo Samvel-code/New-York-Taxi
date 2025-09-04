@@ -1,0 +1,7 @@
+role 'Creative Mob Tech'
+	modelPermission: read
+
+	tablePermission dictVendor = [VendorID] == 1
+
+	annotation PBI_Id = 782c38a527224e769ad42c1cb874ee42
+

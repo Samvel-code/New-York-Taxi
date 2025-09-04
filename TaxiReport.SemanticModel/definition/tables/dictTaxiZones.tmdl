@@ -1,0 +1,55 @@
+table dictTaxiZones
+	lineageTag: eb9c6a58-6148-4a3d-b34c-266184d2343f
+
+	column LocationID
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4dcdde7d-c7cf-4672-9995-78d40435a93b
+		summarizeBy: none
+		sourceColumn: LocationID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Borough
+		dataType: string
+		lineageTag: 819087db-2067-44c3-b7ea-13f5b7b97cf4
+		summarizeBy: none
+		sourceColumn: Borough
+
+		annotation SummarizationSetBy = Automatic
+
+	column Zone
+		dataType: string
+		lineageTag: dfc03eee-4d19-4419-a406-94c682688ba1
+		summarizeBy: none
+		sourceColumn: Zone
+
+		annotation SummarizationSetBy = Automatic
+
+	column service_zone
+		dataType: string
+		lineageTag: 03072676-9a93-4231-b60c-a242d1608040
+		summarizeBy: none
+		sourceColumn: service_zone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dictTaxiZones = m
+		mode: import
+		queryGroup: dict
+		source =
+				let
+				    Source = Json.Document(File.Contents("C:\Users\Samvel\Downloads\Test Task PBI 202401UA\data\TaxiZones.json")),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				    #"Expanded Column1" = Table.ExpandRecordColumn(#"Converted to Table", "Column1", {"LocationID", "Borough", "Zone", "service_zone"}, {"LocationID", "Borough", "Zone", "service_zone"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded Column1",{{"LocationID", Int64.Type}, {"Borough", type text}, {"Zone", type text}, {"service_zone", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

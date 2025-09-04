@@ -1,0 +1,47 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup dict
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup fact
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation PBI_QueryOrder = ["data_dictionary","factTaxiDataShort","dictTaxiZones","dictVendor","dictPaymentType","dictRate","dictStoreAndFwdFlag","dictTripType","descSegments"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.146.1254.0 (25.08)+791a7518fadc83da883d79322a2658aff57c8db3
+
+annotation PBI_ProTooling = ["DevMode","CalcGroup"]
+
+annotation __TEdtr = 1
+
+ref table factTaxiDataShort
+ref table DateTableTemplate_a5ad27fa-ed79-4552-9cce-85e651d0a5c0
+ref table LocalDateTable_6346e979-e0cd-4e51-8249-b5697e55f9c4
+ref table LocalDateTable_9441a53e-ebcb-45e2-8950-225cdc934735
+ref table dictTaxiZones
+ref table dictVendor
+ref table dictPaymentType
+ref table dictRate
+ref table dictStoreAndFwdFlag
+ref table dictTripType
+ref table Intelligence
+ref table date
+ref table LocalDateTable_467978c6-f771-43d2-bd5f-5ded618d8dd7
+ref table descSegments
+
+ref role Verifone
+ref role 'Creative Mob Tech'
+
+ref cultureInfo en-US
+

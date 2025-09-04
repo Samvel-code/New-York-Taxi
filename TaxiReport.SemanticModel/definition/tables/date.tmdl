@@ -1,0 +1,65 @@
+table date
+	lineageTag: 0cc0cfe9-65f0-4198-8e8f-76e2d84a2200
+
+	column Date
+		formatString: General Date
+		lineageTag: 446f04a7-a8dc-4587-91c0-4306c707ee1d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: c8c1913e-d663-4be0-9827-bf7ef8ae6498
+			defaultHierarchy: LocalDateTable_467978c6-f771-43d2-bd5f-5ded618d8dd7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mo = MONTH('date'[Date])
+		isHidden
+		formatString: 0
+		lineageTag: 822b6b72-3862-4947-8f5a-7aab89b71579
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month = FORMAT('date'[Date],"MMM")
+		lineageTag: 38c12f45-d96f-46d2-89fe-577a717ca272
+		summarizeBy: none
+		sortByColumn: Mo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = FORMAT('date'[Date],"YYYY")
+		lineageTag: ba8206a4-d238-44da-b9ab-425790d45d33
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Day = FORMAT('date'[Date],"DD")
+		lineageTag: 6540942b-7d24-4055-badd-9d59c0495d7f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Name' = FORMAT ( 'Date'[Date], "ddd" )
+		lineageTag: 3bebc55a-3bfa-4f46-af2f-3c02b71ebdc7
+		summarizeBy: none
+		sortByColumn: WD
+
+		annotation SummarizationSetBy = Automatic
+
+	column WD = WEEKDAY('date'[Date],2)
+		isHidden
+		formatString: 0
+		lineageTag: 177c74d8-c219-4c17-a7d1-3da5e79db165
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition date = calculated
+		mode: import
+		source = CALENDAR(MIN(factTaxiDataShort[date]), MAX(factTaxiDataShort[date]))
+
+	annotation PBI_Id = ead569023f5548e9b57ccff70ad30da6
+

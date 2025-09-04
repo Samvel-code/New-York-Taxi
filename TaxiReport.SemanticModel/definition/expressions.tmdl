@@ -1,0 +1,13 @@
+expression data_dictionary =
+		let
+		    Source = Excel.Workbook(File.Contents("C:\Users\Samvel\Downloads\Test Task PBI 202401UA\data\DataDictionary.xlsx"), null, true),
+		    data_dictionary_Sheet = Source{[Item="data_dictionary",Kind="Sheet"]}[Data],
+		    #"Changed Type" = Table.TransformColumnTypes(data_dictionary_Sheet,{{"Column1", type text}, {"Column2", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: b6d7d935-5214-45f0-8d50-c0ab7d046f41
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

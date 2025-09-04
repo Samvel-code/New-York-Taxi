@@ -1,0 +1,47 @@
+table descSegments
+	lineageTag: deb79334-8a90-4de3-9695-5d63121f2d27
+
+	column Segment
+		dataType: string
+		lineageTag: 1978e027-0ca6-4e78-b5a0-f0c9a4f5b412
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 96d10576-05d4-41a9-8d39-f35b5983e974
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition descSegments = m
+		mode: import
+		source =
+				let
+				    Source = #table(
+				        {"Segment", "Description"},
+				        {
+				            {"Airport",     "Trips 8–10 miles, 25–60 min, ending at JFK (132) or LGA (138)."},
+				            {"Too Fast",    "Unrealistic speeds (>40 mph) or trip too short for distance. Likely data error."},
+				            {"Too Long",    "Very long duration (>60 min) for very short distance (<0.5 mi). Likely data issue."},
+				            {"Wait Heavy",  "Minimal movement (<0.2 mi) but long wait time (≥10 min)."},
+				            {"Errand",      "Very short local hop (<1 mi, ≤10 min)."},
+				            {"Short",       "Frequent inner-city ride (1–3 mi, 5–20 min, typical speed 6–12 mph)."},
+				            {"Crosstown",   "Medium trips (3–6 mi, 15–35 min), crossing neighborhoods."},
+				            {"Slow XTown",  "Medium distance (3–6 mi) but very slow (speed <8 mph, >45 min)."},
+				            {"Borough",     "Longer city ride (6–10 mi, 25–60 min)."},
+				            {"Express",     "Fast, efficient ride (≥3 mi, ≤25 min, speed >15 mph)."},
+				            {"Typical",     "Normal urban trips that don’t fit other categories."}
+				        }
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Segment", type text}, {"Description", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

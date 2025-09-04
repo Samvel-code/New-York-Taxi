@@ -1,0 +1,45 @@
+table dictTripType
+	lineageTag: 6248c04c-75a7-4a4f-8728-98ce6e17fdc3
+
+	column TripTypeID
+		dataType: double
+		isHidden
+		lineageTag: a5473562-0177-4d62-8266-11639e9fb8af
+		summarizeBy: none
+		sourceColumn: TripTypeID
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TripType
+		dataType: string
+		lineageTag: 26e6be00-9642-4ac0-9e5f-eb0830a9e5cf
+		summarizeBy: none
+		sourceColumn: TripType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dictTripType = m
+		mode: import
+		queryGroup: dict
+		source =
+				let
+				    Source = #table(
+				        {"TripType", "Description"},
+				        {
+				            {1, "Street-hail"},
+				            {2, "Dispatch"}
+				        }
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"TripType", type number}, {"Description", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"TripType", "TripTypeID"}, {"Description", "TripType"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

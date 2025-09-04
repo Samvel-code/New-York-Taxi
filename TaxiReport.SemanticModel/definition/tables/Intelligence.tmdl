@@ -1,0 +1,66 @@
+table Intelligence
+	lineageTag: 4ee392c1-e225-4de3-9c83-eef95d138903
+
+	calculationGroup
+
+		calculationItem MTD =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    DATESMTD ( 'factTaxiDataShort'[date] )
+				)
+
+		calculationItem YTD =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    DATESYTD ( 'factTaxiDataShort'[date] )
+				)
+
+		calculationItem PY =
+				CALCULATE (
+				    SELECTEDMEASURE (),
+				    SAMEPERIODLASTYEAR ( 'date'[Date] )
+				)
+
+		calculationItem YOY =
+				VAR CY =
+				    SELECTEDMEASURE ()
+				VAR PY =
+				    CALCULATE (
+				        SELECTEDMEASURE (),
+				        SAMEPERIODLASTYEAR ( 'date'[Date]  )
+				    )
+				RETURN
+				    CY - PY
+
+		calculationItem YOY% =
+				VAR CY =
+				    SELECTEDMEASURE ()
+				VAR PY =
+				    CALCULATE (
+				        SELECTEDMEASURE (),
+				        SAMEPERIODLASTYEAR ( 'date'[Date]  )
+				    )
+				VAR YOY = CY - PY
+				RETURN
+				    DIVIDE (
+				        YOY,
+				        PY,
+				        0
+				    )
+
+			formatStringDefinition = "0.00%"
+
+		calculationItem Current = SELECTEDMEASURE ()
+
+	column Name
+		dataType: string
+		lineageTag: 9b0774ad-c68e-485e-9c69-be3374925a42
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: 19a308fb-b2b5-42eb-8e02-1df82a289555
+		sourceColumn: Ordinal
+

@@ -1,0 +1,7 @@
+role Verifone
+	modelPermission: read
+
+	tablePermission dictVendor = [VendorID] == 2
+
+	annotation PBI_Id = 939f79d418714815a54e70ab8dc8868a
+

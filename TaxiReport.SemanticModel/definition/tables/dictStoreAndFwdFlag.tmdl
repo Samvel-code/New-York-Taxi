@@ -1,0 +1,42 @@
+table dictStoreAndFwdFlag
+	lineageTag: ef16d8c7-999c-4600-96c9-7f87d4b83a70
+
+	column StoreAndFwdFlag
+		dataType: string
+		isHidden
+		lineageTag: 136d7cb2-8001-475a-b0d3-7ef48715c4b5
+		summarizeBy: none
+		sourceColumn: StoreAndFwdFlag
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: 0a609a25-aa5f-4009-a525-1ae93b3405b5
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dictStoreAndFwdFlag = m
+		mode: import
+		queryGroup: dict
+		source =
+				let
+				    Source = #table(
+				        {"StoreAndFwdFlag", "Description"},
+				        {
+				            {"Y", "Store and forward trip"},
+				            {"N", "Not a store and forward trip"}
+				        }
+				    ),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"StoreAndFwdFlag", type text}, {"Description", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
