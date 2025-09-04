@@ -2,17 +2,19 @@ table dictPaymentType
 	lineageTag: 3421fced-5ad6-40c3-96ad-f71e62fbb488
 
 	column PaymentType
-		dataType: double
+		dataType: int64
 		isHidden
+		isKey
+		formatString: 0
 		lineageTag: 00aad862-2dee-4222-a5ff-08cd5a294bfc
 		summarizeBy: none
 		sourceColumn: PaymentType
 
 		changedProperty = IsHidden
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = DataType
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = Automatic
 
 	column PaymentMethod
 		dataType: string

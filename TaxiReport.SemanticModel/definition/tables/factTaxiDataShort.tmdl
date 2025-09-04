@@ -235,11 +235,6 @@ table factTaxiDataShort
 		summarizeBy: none
 		sourceColumn: lpep_pickup_datetime
 
-		variation Variation
-			isDefault
-			relationship: 2756455f-b0b4-4189-97ee-7a3c210b3e8f
-			defaultHierarchy: LocalDateTable_6346e979-e0cd-4e51-8249-b5697e55f9c4.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 	/// The date and time when the meter was disengaged
@@ -249,11 +244,6 @@ table factTaxiDataShort
 		lineageTag: f911e0d3-dd59-49a2-ae01-3a9dbdb2b6ee
 		summarizeBy: none
 		sourceColumn: lpep_dropoff_datetime
-
-		variation Variation
-			isDefault
-			relationship: 1d2e85b3-e2d8-4693-92cd-709303057916
-			defaultHierarchy: LocalDateTable_9441a53e-ebcb-45e2-8950-225cdc934735.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -285,6 +275,7 @@ table factTaxiDataShort
 	/// TLC Taxi Zone in which the taximeter was engaged
 	column PULocationID
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: b2a3c75f-11c6-44b9-8750-d6626f3f5218
 		summarizeBy: none
@@ -448,6 +439,7 @@ table factTaxiDataShort
 
 	column date
 		dataType: dateTime
+		isHidden
 		formatString: Short Date
 		lineageTag: 07d8e77f-3a91-46fb-a7e6-7fc0c031309a
 		summarizeBy: none
@@ -471,7 +463,7 @@ table factTaxiDataShort
 	column trip_duration = DATEDIFF(factTaxiDataShort[lpep_pickup_datetime],factTaxiDataShort[lpep_dropoff_datetime],MINUTE)
 		formatString: 0.00
 		lineageTag: e9cb8108-38d5-4ee5-b2d3-61fd897d6845
-		summarizeBy: sum
+		summarizeBy: none
 
 		annotation SummarizationSetBy = Automatic
 

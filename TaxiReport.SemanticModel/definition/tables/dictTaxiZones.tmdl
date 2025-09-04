@@ -4,6 +4,7 @@ table dictTaxiZones
 	column LocationID
 		dataType: int64
 		isHidden
+		isKey
 		formatString: 0
 		lineageTag: 4dcdde7d-c7cf-4672-9995-78d40435a93b
 		summarizeBy: none

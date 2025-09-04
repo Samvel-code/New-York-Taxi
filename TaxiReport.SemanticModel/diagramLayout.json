@@ -11,20 +11,20 @@
         {
           "location": {
             "x": 790,
-            "y": 352.625
+            "y": 360.0625
           },
           "nodeIndex": "factTaxiDataShort",
           "nodeLineageTag": "b92b6ba8-32a7-4fe1-bc1b-01dcfde4836e",
           "size": {
-            "height": 553,
+            "height": 742,
             "width": 234
           },
-          "zIndex": 6
+          "zIndex": 9
         },
         {
           "location": {
-            "x": 86,
-            "y": 110.625
+            "x": 0,
+            "y": 112.0625
           },
           "nodeIndex": "dictTaxiZones",
           "nodeLineageTag": "eb9c6a58-6148-4a3d-b34c-266184d2343f",
@@ -32,12 +32,12 @@
             "height": 221,
             "width": 234
           },
-          "zIndex": 7
+          "zIndex": 5
         },
         {
           "location": {
-            "x": 549,
-            "y": 112.625
+            "x": 331,
+            "y": 0
           },
           "nodeIndex": "dictPaymentType",
           "nodeLineageTag": "3421fced-5ad6-40c3-96ad-f71e62fbb488",
@@ -45,12 +45,12 @@
             "height": 152,
             "width": 234
           },
-          "zIndex": 2
+          "zIndex": 4
         },
         {
           "location": {
-            "x": 1340,
-            "y": 276.125
+            "x": 117,
+            "y": 726.5625
           },
           "nodeIndex": "dictRate",
           "nodeLineageTag": "3369cac0-4eee-4d44-9a2f-4f58365bebd5",
@@ -58,12 +58,12 @@
             "height": 286,
             "width": 234
           },
-          "zIndex": 3
+          "zIndex": 6
         },
         {
           "location": {
             "x": 1417,
-            "y": 938.625
+            "y": 946.0625
           },
           "nodeIndex": "dictStoreAndFwdFlag",
           "nodeLineageTag": "ef16d8c7-999c-4600-96c9-7f87d4b83a70",
@@ -71,12 +71,12 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 4
+          "zIndex": 8
         },
         {
           "location": {
-            "x": 1325,
-            "y": 761.125
+            "x": 1239,
+            "y": 441.5625
           },
           "nodeIndex": "dictTripType",
           "nodeLineageTag": "6248c04c-75a7-4a4f-8728-98ce6e17fdc3",
@@ -84,24 +84,25 @@
             "height": 128,
             "width": 234
           },
-          "zIndex": 5
+          "zIndex": 7
         },
         {
           "location": {
-            "x": 1104,
-            "y": 50.625
+            "x": 1109,
+            "y": 28
           },
           "nodeIndex": "dictVendor",
+          "nodeLineageTag": "8f71371f-18c5-4216-b958-54c86bab2de5",
           "size": {
             "height": 128,
             "width": 234
           },
-          "zIndex": 1
+          "zIndex": 10
         },
         {
           "location": {
-            "x": 1615,
-            "y": 472.125
+            "x": 1552,
+            "y": 331.5625
           },
           "nodeIndex": "Intelligence",
           "nodeLineageTag": "4ee392c1-e225-4de3-9c83-eef95d138903",
@@ -109,12 +110,12 @@
             "height": 202,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
         },
         {
           "location": {
             "x": 1504.6666622161865,
-            "y": 14.875
+            "y": 22.3125
           },
           "nodeIndex": "date",
           "nodeLineageTag": "0cc0cfe9-65f0-4198-8e8f-76e2d84a2200",
@@ -122,7 +123,20 @@
             "height": 200,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1631,
+            "y": 596.3125
+          },
+          "nodeIndex": "descSegments",
+          "nodeLineageTag": "deb79334-8a90-4de3-9695-5d63121f2d27",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
         }
       ],
       "name": "All tables",

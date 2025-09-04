@@ -2,16 +2,12 @@ table date
 	lineageTag: 0cc0cfe9-65f0-4198-8e8f-76e2d84a2200
 
 	column Date
+		isKey
 		formatString: General Date
 		lineageTag: 446f04a7-a8dc-4587-91c0-4306c707ee1d
 		summarizeBy: none
 		isNameInferred
 		sourceColumn: [Date]
-
-		variation Variation
-			isDefault
-			relationship: c8c1913e-d663-4be0-9827-bf7ef8ae6498
-			defaultHierarchy: LocalDateTable_467978c6-f771-43d2-bd5f-5ded618d8dd7.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 
@@ -56,6 +52,21 @@ table date
 		summarizeBy: sum
 
 		annotation SummarizationSetBy = Automatic
+
+	hierarchy Dates
+		lineageTag: 4b355c91-e61a-4532-b451-36fd8ac7f1f7
+
+		level Year
+			lineageTag: a48be6c1-ae30-438b-912a-f8cb8d3755b9
+			column: Year
+
+		level Month
+			lineageTag: db0c2da0-b8c9-43ba-9f92-f4a42ddefdec
+			column: Month
+
+		level Day
+			lineageTag: 2126c89f-2a63-48e8-8f2a-8601ec48db4d
+			column: Day
 
 	partition date = calculated
 		mode: import
