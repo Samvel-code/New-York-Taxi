@@ -2,17 +2,19 @@ table dictVendor
 	lineageTag: 8f71371f-18c5-4216-b958-54c86bab2de5
 
 	column VendorID
-		dataType: double
+		dataType: int64
 		isHidden
+		isKey
+		formatString: 0
 		lineageTag: fbe82fea-db3d-41c1-8e03-4eed98eb37e5
 		summarizeBy: none
 		sourceColumn: VendorID
 
 		changedProperty = IsHidden
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = DataType
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = Automatic
 
 	column LPEP_Provider
 		dataType: string

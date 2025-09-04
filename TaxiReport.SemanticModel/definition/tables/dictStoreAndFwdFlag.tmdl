@@ -4,6 +4,7 @@ table dictStoreAndFwdFlag
 	column StoreAndFwdFlag
 		dataType: string
 		isHidden
+		isKey
 		lineageTag: 136d7cb2-8001-475a-b0d3-7ef48715c4b5
 		summarizeBy: none
 		sourceColumn: StoreAndFwdFlag

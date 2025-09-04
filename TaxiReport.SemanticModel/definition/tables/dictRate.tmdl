@@ -2,17 +2,19 @@ table dictRate
 	lineageTag: 3369cac0-4eee-4d44-9a2f-4f58365bebd5
 
 	column RateCodeID
-		dataType: double
+		dataType: int64
 		isHidden
+		isKey
+		formatString: 0
 		lineageTag: d847f62e-5c32-4f53-9d17-633c92d559f0
 		summarizeBy: none
 		sourceColumn: RateCodeID
 
 		changedProperty = IsHidden
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = DataType
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation SummarizationSetBy = Automatic
 
 	column RateCode
 		dataType: string
